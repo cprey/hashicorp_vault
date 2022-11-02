@@ -1,5 +1,10 @@
 # Vault PKI Autoenrollment with Vault Template
 
+## Create a local vault using Containers
+
+```console
+docker run -p 8200:8200 -v "$(pwd)"/file:/vault/file --cap-add=IPC_LOCK -e 'VAULT_LOCAL_CONFIG={"disable_mlock": true,"listener": {"tcp": {"address": "0.0.0.0:8200","tls_disable": true}},"backend": {"file": {"path": "/vault/file"}}, "default_lease_ttl": "168h", "max_lease_ttl": "720h","api_addr": "http://0.0.0.0:8200","ui": true}' vault server```
+
 ## Logging in to _this_ vault
 
 ```console
@@ -8,7 +13,7 @@ export VAULT_ADDR=http://localhost:8200
 
 This is useful if the systems are local or on a low-latency network. Vault agent is the *plain old* vault binary running as a daemon.
 
-1. Create the AppRole 
+1. Create the AppRole
 
     ```console
     curl \
