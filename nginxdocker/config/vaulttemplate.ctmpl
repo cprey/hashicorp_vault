@@ -1,0 +1,33 @@
+pid_file = "./pidfile"
+
+vault {
+  address = "http://192.168.32.2:8200"
+}
+
+auto_auth {
+  method {
+    type = "approle"
+
+    config = {
+      remove_secret_id_file_after_reading = false
+      role_id_file_path = "/config/roleid"
+      secret_id_file_path = "/config/secretid"
+    }
+  }
+  sink "file" {
+    config = {
+      path = "/tmp/file-foo"
+      }
+}
+}
+
+template {
+  source      = "/config/generic-cert.tpl"
+  destination = "/etc/nginx/certs/certs.pem"
+}
+
+template {
+  source      = "/config/generic-key.tpl"
+  destination = "/etc/nginx/certs/key.pem"
+  command     = "/etc/init.d/nginx reload"
+}

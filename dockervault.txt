@@ -1,0 +1,26 @@
+Vault root token: s.ShchKgFOwvUnAsFnUImidg0i
+
+Vault unseal key: zgYN1WeDdsULyztOKBK870uvm6a0pHAIi6kt6J1nLHQ=
+
+
+
+
+curl \
+    --header "X-Vault-Token: $RVT" \
+    --request POST \
+    --data '{"policies": "j"}' \
+    http://127.0.0.1:8200/v1/auth/approle/role/my-role
+    
+    curl \
+    --header "X-Vault-Token: $RVT" \
+    --request POST \
+     http://127.0.0.1:8200/v1/auth/approle/role/my-role/secret-id
+     
+     
+     
+     "secret_id":"f440bd24-050f-97dc-c3eb-29351878572d"
+     "role_id":"bf872acf-ab97-a4bb-734d-f6421c402dc7"
+     
+     
+     
+     ./vault agent -config=./vaulttemplate.ctmpl

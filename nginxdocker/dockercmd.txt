@@ -1,0 +1,5 @@
+docker run -it --rm --name web -v "$(pwd)"/config:/config -p 8888:80 -p 8443:443 nginx:latest 
+
+docker exec web cp config/ssl.conf /etc/nginx/conf.d/
+
+docker exec web ./config/vault  agent --config ./config/vaulttemplate.ctmpl
